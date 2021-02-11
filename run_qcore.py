@@ -10,26 +10,20 @@ def run_qcore(filename: str, epsilon: float, radial_shift: float) -> str:
     and extracts electrostiatic energy from output
     """
 
-    qcore_input_command_str = get_qcore_run_command()
+    qcore_input_command_str = qcore_run_command()
 
-    solvation_input = get_qcore_input(filename, epsilon, radial_shift)
-
-    gas_input = get_qcore_gas_input(filename)
+    solvation_input = qcore_input(filename, epsilon, radial_shift)
 
     qcore_output_solvation = subprocess.run(qcore_input_command_str +
                                             '"' + solvation_input
                                             + '"',
                                             capture_output=True, text=True, shell=True)
+    print(qcore_output_solvation.stderr)
 
-    qcore_output_gas = subprocess.run(qcore_input_command_str +
-                                      '"' + gas_input
-                                      + '"',
-                                      capture_output=True, text=True, shell=True)
-
-    if qcore_output_solvation.returncode == 0 and qcore_output_gas.returncode == 0:
-        return qcore_output_solvation.stdout, qcore_output_gas.stdout
-    elif qcore_output_solvation.returncode != 0 and qcore_output_gas.returncode != 0 :
-        return qcore_output_solvation.stderr, qcore_output_gas.stderr
+    if qcore_output_solvation.returncode == 0 :
+        return qcore_output_solvation.stdout
+    elif qcore_output_solvation.returncode != 0 :
+        return qcore_output_solvation.stderr
 
 
 def get_qcore_energies(filename: str, epsilon: float, radial_shift: float) -> dict:
