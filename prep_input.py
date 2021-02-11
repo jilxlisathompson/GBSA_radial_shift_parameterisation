@@ -1,5 +1,7 @@
 def qcore_input(filename: str, epsilon: float, gb_parameter: float) -> str:
 
+    print(f"{filename}")
+
     qcore_input_str_calc = """xtb_run := xtb(structure(file ='{filename}'))
                             cosmo_run := solvation(load = xtb_run
                             model = cosmo 
