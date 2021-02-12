@@ -1,24 +1,26 @@
-import run_all_structures
+import sort_qcore_output
 from numpy import dot
 from scipy.optimize import minimize
 
 
-def objective_function(radial_shift: float) -> list:
+def objective_function(gb_parameter: float, epsilon: float) -> list:
 
-    radial_shift = float(radial_shift)
-    errorDGsolv = run_all_structures.get_errorDGsolv(radial_shift)
+    print(f"radial_shift = {gb_parameter}")
+
+    gb_parameter = float(gb_parameter)
+    errorDGsolv = sort_qcore_output.error_DGsolv(gb_parameter, epsilon)
+
     return dot(errorDGsolv, errorDGsolv)
 
 
-def perform_minimise():
+def perform_minimise(epsilon: float):
 
     x0 = -0.15
 
-    res = minimize(objective_function, x0, method='nelder-mead', options={"disp": True})
+    res = minimize(objective_function, x0, args=epsilon, method='nelder-mead', options={"disp": True})
 
     parameters = res.x
     print(res.x)
-
 
     return parameters
 
