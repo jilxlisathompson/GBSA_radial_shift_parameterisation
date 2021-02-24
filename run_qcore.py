@@ -19,6 +19,7 @@ def run_qcore(filename: str, epsilon: float, gb_parameter: float) -> str:
                                             '"' + solvation_input
                                             + '"',
                                             capture_output=True, text=True, shell=True)
+    print(qcore_output_solvation.stderr)
 
     if qcore_output_solvation.returncode == 0:
         return qcore_output_solvation.stdout

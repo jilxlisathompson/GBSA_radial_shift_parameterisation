@@ -1,13 +1,11 @@
 import sort_qcore_output
 from numpy import dot
 from scipy.optimize import minimize
+import numpy as np
 
 
-def objective_function(gb_parameter: float, epsilon: float) -> list:
+def objective_function(gb_parameter: list, epsilon: float) -> list:
 
-    print(f"radial_shift = {gb_parameter}")
-
-    gb_parameter = float(gb_parameter)
     errorDGsolv = sort_qcore_output.error_DGsolv(gb_parameter, epsilon)
 
     return dot(errorDGsolv, errorDGsolv)
@@ -15,7 +13,7 @@ def objective_function(gb_parameter: float, epsilon: float) -> list:
 
 def perform_minimise(epsilon: float):
 
-    x0 = -0.15
+    x0 = np.array([-0.15, 1.0])
 
     res = minimize(objective_function, x0, args=epsilon, method='nelder-mead', options={"disp": True})
 

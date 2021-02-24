@@ -4,7 +4,7 @@ from sys import argv
 from run_qcore import *
 
 
-def get_results(xyz_fp: str, epsilon: float, gb_parameter: float) -> dict:
+def get_results(xyz_fp: str, epsilon: float, gb_parameter: dict) -> dict:
 
     chdir(xyz_fp)
     results_dict = {}

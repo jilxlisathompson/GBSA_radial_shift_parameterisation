@@ -1,6 +1,7 @@
-def qcore_input(filename: str, epsilon: float, gb_parameter: float) -> str:
+def qcore_input(filename: str, epsilon: float, gb_parameter: dict) -> str:
 
     print(f"{filename}")
+    print(gb_parameter[0])
 
     qcore_input_str_calc = """xtb_run := xtb(structure(file ='{filename}'))
                             cosmo_run := solvation(load = xtb_run
@@ -10,10 +11,11 @@ def qcore_input(filename: str, epsilon: float, gb_parameter: float) -> str:
                             gb_run := solvation(load = xtb_run
                             model = gbsa
                             epsilon = {epsilon}
-                            radial_factor = 1.2
+                            radial_factor = {radial_factor}
                             d_parameter = 4.0
                             radial_shift = {radial_shift} bohr)"""\
-        .format(filename=filename, epsilon=epsilon, radial_shift=gb_parameter)
+        .format(filename=filename, epsilon=epsilon, radial_factor=gb_parameter[1],
+                radial_shift=gb_parameter[0])
     return qcore_input_str_calc
 
 

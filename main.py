@@ -8,7 +8,7 @@ def main():
     parameters = minimisation.perform_minimise(epsilon)
     with open(f"../parameters_{int(epsilon)}.txt", "w") as file:
         file.write(f"solvent = {int(epsilon)}")
-        file.write(f"parameterised radial shift = {str(parameters[0])}")
+        file.write(f"parameterised radial shift = {parameters}")
 
 
 if __name__ == "__main__":

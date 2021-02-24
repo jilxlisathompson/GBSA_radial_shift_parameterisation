@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-def make_results_df(gb_parameter: float, epsilon: float) -> dict:
+def make_results_df(gb_parameter: list, epsilon: float) -> dict:
 
     _xyz_fp = get_xyz_fp()
 
@@ -17,9 +17,9 @@ def make_results_df(gb_parameter: float, epsilon: float) -> dict:
     return results_df
 
 
-def error_DGsolv(radial_shift: float, epsilon: float) -> np.array:
+def error_DGsolv(gb_parameter: list, epsilon: float) -> np.array:
 
-    qcore_data = make_results_df(radial_shift, epsilon)
+    qcore_data = make_results_df(gb_parameter, epsilon)
 
     error_dgsolv = []
 
